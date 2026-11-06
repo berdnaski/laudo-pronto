@@ -1,5 +1,6 @@
 import { Marca } from "@/components/Marca";
 import { BarraFixa } from "@/components/vendas/BarraFixa";
+import { PopupSaida } from "@/components/vendas/PopupSaida";
 import { Contador } from "@/components/vendas/Contador";
 import { DemoAoVivo } from "@/components/vendas/DemoAoVivo";
 import { Revelar } from "@/components/vendas/Revelar";
@@ -301,6 +302,7 @@ export default function Vendas() {
       </footer>
 
       <BarraFixa />
+      <PopupSaida />
     </>
   );
 }

@@ -17,11 +17,6 @@ body { @apply bg-mist text-ink font-sans antialiased; font-optical-sizing: auto;
   .cta-sm { @apply rounded-xl px-5 py-3 text-base; }
   /* CTA principal: pulsa e tem um brilho passando */
   .cta-vivo { @apply relative overflow-hidden animate-pulsoCta; }
-  .cta-vivo::after {
-    content: ""; position: absolute; inset: 0; width: 35%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
-    animation: brilho 7s ease-in-out infinite; pointer-events: none;
-  }
   .revelar { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
   .revelar.visivel { opacity: 1; transform: none; }
   .grifo {
@@ -42,7 +37,9 @@ body { @apply bg-mist text-ink font-sans antialiased; font-optical-sizing: auto;
 @media (prefers-reduced-motion: reduce) {
   .revelar { opacity: 1; transform: none; }
   .grifo.grifo-animado { animation: none; background-size: 100% 100%; }
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  /* Sem movimento: animações decorativas contínuas ficam paradas (nunca em loop acelerado). */
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .animate-surgir { opacity: 1 !important; }
 }
 
 @media print {
@@ -52,4 +49,3 @@ body { @apply bg-mist text-ink font-sans antialiased; font-optical-sizing: auto;
   .folha { box-shadow: none !important; border: 0 !important; padding: 0 !important; max-width: none !important; }
 }
 
-@keyframes brilho { 0%, 55% { transform: translateX(-120%) skewX(-20deg); } 80%, 100% { transform: translateX(320%) skewX(-20deg); } }

@@ -22,7 +22,6 @@ export default {
           "0%": { boxShadow: "0 4px 0 #C99F00, 0 0 0 0 rgba(255,216,77,.75)" },
           "60%,100%": { boxShadow: "0 4px 0 #C99F00, 0 0 0 14px rgba(255,216,77,0)" },
           },
-        brilho: { "0%": { transform: "translateX(-120%) skewX(-20deg)" }, "60%,100%": { transform: "translateX(320%) skewX(-20deg)" } },
         piscar: { "0%,100%": { opacity: "1" }, "50%": { opacity: ".35" } },
         batida: { "0%,100%": { transform: "scale(1)" }, "50%": { transform: "scale(1.03)" } },
         digito: { from: { transform: "translateY(-40%)", opacity: ".2" }, to: { transform: "none", opacity: "1" } },
@@ -31,11 +30,10 @@ export default {
       animation: {
         surgir: "surgir .7s cubic-bezier(.2,.7,.2,1) both",
         pulsoCta: "pulsoCta 4s ease-out infinite",
-        brilho: "brilho 3.2s ease-in-out infinite",
         piscar: "piscar 2.4s ease-in-out infinite",
         batida: "batida 3.5s ease-in-out infinite",
         digito: "digito .35s ease-out",
-        faixa: "faixa 90s linear infinite",
+        faixa: "faixa 140s linear infinite",
       },
       boxShadow: {
         paper: "0 1px 0 #D6DCE6, 0 18px 40px -18px rgba(23,35,56,.35)",
