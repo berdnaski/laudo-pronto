@@ -98,7 +98,7 @@ export default function Vendas() {
         <div className="overflow-hidden border-y-2 border-ink bg-marca py-3" aria-hidden="true">
           <div className="flex w-max animate-faixa gap-10 whitespace-nowrap text-lg font-extrabold text-ink">
             {[0, 1].map((k) => (
-              <div key={k} className="flex gap-10">
+              <div key={k} className="flex gap-10 pr-10">
                 {["Acesso na hora", "Padrão Resolução CFP 06/2019", "Word e PDF", "Seu CRP já no documento", "7 dias de garantia", "Pix aprova na hora", "Pagamento único"].map((t) => (
                   <span key={t} className="flex items-center gap-10">{t}<span className="text-seal">✦</span></span>
                 ))}
@@ -287,7 +287,7 @@ export default function Vendas() {
                 <Contador fim={OFERTA.fimLancamento} />
               </div>
             )}
-            <a href={OFERTA.checkout} className="cta mt-8 animate-batida bg-ink text-white shadow-[0_4px_0_#000] hover:bg-ink/90">Quero o Laudo Pronto agora</a>
+            <a href={OFERTA.checkout} className="cta mt-8 bg-ink text-white shadow-[0_4px_0_#000] hover:bg-ink/90">Quero o Laudo Pronto agora</a>
           </div>
         </section>
       </main>
