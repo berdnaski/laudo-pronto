@@ -1,0 +1,55 @@
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/source-serif-4";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; }
+body { @apply bg-mist text-ink font-sans antialiased; font-optical-sizing: auto; }
+
+@layer components {
+  .cta {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-marca px-7 py-4 text-lg font-extrabold text-ink shadow-cta
+      transition-transform hover:-translate-y-0.5 hover:bg-marca-deep active:translate-y-0.5 active:shadow-none
+      focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-ink;
+  }
+  .cta-sm { @apply rounded-xl px-5 py-3 text-base; }
+  /* CTA principal: pulsa e tem um brilho passando */
+  .cta-vivo { @apply relative overflow-hidden animate-pulsoCta; }
+  .cta-vivo::after {
+    content: ""; position: absolute; inset: 0; width: 35%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
+    animation: brilho 3.2s ease-in-out infinite; pointer-events: none;
+  }
+  .revelar { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .revelar.visivel { opacity: 1; transform: none; }
+  .grifo {
+    background: linear-gradient(transparent 58%, #FFD84D 58%, #FFD84D 92%, transparent 92%) no-repeat 0 0 / 100% 100%;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 .1em;
+  }
+  .papel { @apply bg-white shadow-paper; }
+  .campo {
+    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-ink-faint
+      focus:border-ink focus:outline-none focus:ring-4 focus:ring-marca/60;
+  }
+  .rotulo { @apply mb-1.5 block text-sm font-semibold text-ink; }
+}
+
+.grifo.grifo-animado { background-size: 0% 100%; animation: grifar 1s .9s cubic-bezier(.6,0,.2,1) forwards; }
+@keyframes grifar { to { background-size: 100% 100%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .revelar { opacity: 1; transform: none; }
+  .grifo.grifo-animado { animation: none; background-size: 100% 100%; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  @page { size: A4; margin: 2.5cm 2cm; }
+  body { background: #fff !important; }
+  .nao-imprime { display: none !important; }
+  .folha { box-shadow: none !important; border: 0 !important; padding: 0 !important; max-width: none !important; }
+}
+
+@keyframes brilho { 0% { transform: translateX(-120%) skewX(-20deg); } 60%, 100% { transform: translateX(320%) skewX(-20deg); } }
