@@ -15,6 +15,6 @@ export const OFERTA = {
   fimLancamento: data(process.env.NEXT_PUBLIC_FIM_LANCAMENTO) || "2026-11-30T23:59:59-03:00",
   suporte: process.env.NEXT_PUBLIC_EMAIL_SUPORTE?.includes("@") ? process.env.NEXT_PUBLIC_EMAIL_SUPORTE : "suporte@laudopronto.com.br",
   checkoutIA: link(process.env.NEXT_PUBLIC_CHECKOUT_IA_URL),
-  checkoutCompleto: link(process.env.NEXT_PUBLIC_CHECKOUT_COMPLETO_URL),
-  checkoutContratos: link(process.env.NEXT_PUBLIC_CHECKOUT_CONTRATOS_URL),
+  checkoutCompleto: link(process.env.NEXT_PUBLIC_CHECKOUT_COMPLETO_URL) || "https://pay.cakto.com.br/p9um7zs_1289547",
+  checkoutContratos: link(process.env.NEXT_PUBLIC_CHECKOUT_CONTRATOS_URL) || "https://pay.cakto.com.br/b5asgcv_1287256",
 };

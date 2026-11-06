@@ -23,9 +23,9 @@ export async function acessoDe(email: string): Promise<Acesso> {
 /** Mapeia o produto/oferta da Cakto para o pacote que ele libera. */
 export function pacoteDoProduto(ids: (string | undefined)[]): string | null {
   const mapa: Record<string, string | undefined> = {
-    essencial: process.env.CAKTO_PRODUTO_ESSENCIAL,
-    contratos: process.env.CAKTO_PRODUTO_CONTRATOS,
-    completo: process.env.CAKTO_PRODUTO_COMPLETO,
+    essencial: [process.env.CAKTO_PRODUTO_ESSENCIAL, "205687ba-d8bc-478c-94b4-50ea25c368e6"].filter(Boolean).join(","),
+    contratos: [process.env.CAKTO_PRODUTO_CONTRATOS, "2aefc6ee-7067-4b6a-86f8-1ca58242ae24"].filter(Boolean).join(","),
+    completo: [process.env.CAKTO_PRODUTO_COMPLETO, "84cb3a44-effb-4865-982b-35aafdc85278"].filter(Boolean).join(","),
     ia: process.env.CAKTO_PRODUTO_IA,
   };
   for (const [pacote, configurado] of Object.entries(mapa)) {
