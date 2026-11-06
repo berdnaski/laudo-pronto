@@ -7,6 +7,7 @@ const UPGRADE: Record<Pacote, string> = {
   essencial: OFERTA.checkout,
   contratos: OFERTA.checkoutContratos,
   completo: OFERTA.checkoutCompleto,
+  consultorio: OFERTA.checkoutConsultorio,
 };
 
 export default async function Painel() {
@@ -72,6 +73,28 @@ export default async function Painel() {
           </section>
         );
       })}
+
+      <section className="mt-10">
+        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-xl font-bold">
+            Banco de frases técnicas
+            {!tem("frases") && <span className="ml-2 rounded-full bg-ink px-2.5 py-0.5 align-middle text-xs font-semibold text-white">bloqueado</span>}
+          </h2>
+          {!tem("frases") && <a href={OFERTA.checkoutFrases} className="cta cta-sm">Liberar banco de frases</a>}
+        </div>
+        {tem("frases") ? (
+          <Link href="/app/frases" className="group block rounded-2xl border border-line bg-white p-5 transition hover:-translate-y-0.5 hover:border-ink">
+            <h3 className="text-lg font-bold">36 frases prontas para copiar</h3>
+            <p className="mt-2 text-sm text-ink-soft">Demanda, procedimentos, análise, conclusão, evolução e mensagens aos pacientes.</p>
+            <span className="mt-4 inline-block font-semibold group-hover:underline">Abrir</span>
+          </Link>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-line bg-white/50 p-5 opacity-70">
+            <h3 className="text-lg font-bold">36 frases prontas para copiar</h3>
+            <p className="mt-2 text-sm text-ink-soft">Demanda, procedimentos, análise, conclusão, evolução e mensagens aos pacientes.</p>
+          </div>
+        )}
+      </section>
 
       {!tem("ia") && OFERTA.checkoutIA && (
         <section className="mt-12 flex flex-col items-start gap-4 rounded-3xl bg-ink p-7 text-white sm:flex-row sm:items-center">

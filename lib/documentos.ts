@@ -2,7 +2,7 @@
 // Resolução CFP nº 06/2019. O texto gerado é um ponto de partida:
 // o psicólogo revisa, ajusta e assina — a responsabilidade técnica é dele.
 
-export type Pacote = "essencial" | "contratos" | "completo";
+export type Pacote = "essencial" | "contratos" | "completo" | "consultorio";
 
 export type Campo = {
   id: string;
@@ -393,12 +393,122 @@ export const MODELOS: Modelo[] = [
       rodape: "Registro de prontuário — sigiloso.",
     }),
   },
+  // ───────────── Pacote consultório (order bump) ─────────────
+  {
+    slug: "recibo",
+    nome: "Recibo de pagamento",
+    pacote: "consultorio",
+    oficial: false,
+    resumo: "Recibo de sessões ou avaliação, pronto para o paciente declarar no imposto de renda.",
+    campos: [
+      { id: "paciente", rotulo: "Nome do(a) pagador(a)", tipo: "texto", obrigatorio: true, identifica: true },
+      { id: "cpf", rotulo: "CPF do(a) pagador(a)", tipo: "texto", identifica: true, dica: "Opcional, mas o paciente costuma precisar para o IR" },
+      { id: "valor", rotulo: "Valor recebido", tipo: "texto", obrigatorio: true, exemplo: "R$ 720,00 (setecentos e vinte reais)" },
+      { id: "referente", rotulo: "Referente a", tipo: "texto", obrigatorio: true, exemplo: "4 sessões de psicoterapia realizadas em outubro de 2026" },
+      { id: "forma", rotulo: "Forma de pagamento", tipo: "texto", exemplo: "Pix" },
+      campoData,
+    ],
+    montar: (v, p) => ({
+      titulo: "Recibo",
+      blocos: [
+        {
+          paragrafos: [
+            `Recebi de ${ou(v.paciente, "nome do(a) pagador(a)")}${v.cpf ? `, CPF ${v.cpf.trim()}` : ""}, a quantia de ${ou(v.valor, "valor")}, referente a ${ou(v.referente, "serviço prestado")}${v.forma ? `, paga via ${v.forma.trim()}` : ""}.`,
+            "Por ser verdade, firmo o presente recibo, dando plena e geral quitação.",
+          ],
+        },
+        fecho(v, p),
+        { paragrafos: [`_______________________________\n${ou(p.nome, "seu nome")} — CRP ${ou(p.crp, "00/00000")}`] },
+      ],
+    }),
+  },
+  {
+    slug: "comparecimento",
+    nome: "Comprovante de comparecimento",
+    pacote: "consultorio",
+    oficial: false,
+    resumo: "Comprova que o paciente esteve na sessão em um dia e horário, sem revelar conteúdo.",
+    campos: [
+      { id: "paciente", rotulo: "Nome do(a) atendido(a)", tipo: "texto", obrigatorio: true, identifica: true },
+      { id: "dia", rotulo: "Data da sessão", tipo: "data", obrigatorio: true },
+      { id: "horario", rotulo: "Horário", tipo: "texto", obrigatorio: true, exemplo: "das 14h às 14h50" },
+      { id: "finalidade", rotulo: "Para apresentar a", tipo: "texto", exemplo: "empresa / escola / faculdade" },
+      campoData,
+    ],
+    montar: (v, p) => ({
+      titulo: "Comprovante de comparecimento",
+      blocos: [
+        {
+          paragrafos: [
+            `Comprovo que ${ou(v.paciente, "nome do(a) atendido(a)")} compareceu a atendimento psicológico em ${dataPorExtenso(v.dia)}, ${ou(v.horario, "horário")}, sob minha responsabilidade${v.finalidade ? `, para apresentação a ${v.finalidade.trim()}` : ""}.`,
+            "Este comprovante atesta apenas o comparecimento, sem qualquer informação sobre o conteúdo do atendimento.",
+          ],
+        },
+        fecho(v, p),
+        { paragrafos: [`_______________________________\n${ou(p.nome, "seu nome")} — CRP ${ou(p.crp, "00/00000")}`] },
+      ],
+    }),
+  },
+  {
+    slug: "politica-faltas",
+    nome: "Política de faltas e cancelamentos",
+    pacote: "consultorio",
+    oficial: false,
+    resumo: "Comunicado claro sobre remarcações, atrasos e cobrança de faltas, para enviar ao paciente.",
+    campos: [
+      { id: "antecedencia", rotulo: "Antecedência mínima para desmarcar", tipo: "texto", obrigatorio: true, exemplo: "24 horas" },
+      { id: "cobranca", rotulo: "Como funciona a cobrança de faltas", tipo: "area", obrigatorio: true, exemplo: "Faltas sem aviso prévio serão cobradas integralmente. Desmarcações dentro do prazo podem ser remarcadas na mesma semana." },
+      { id: "atraso", rotulo: "Política de atrasos", tipo: "texto", exemplo: "A sessão termina no horário previsto, sem reposição do tempo perdido." },
+      { id: "excecoes", rotulo: "Exceções (opcional)", tipo: "area", ia: true, exemplo: "Imprevistos de saúde e emergências, avisados assim que possível, serão avaliados caso a caso." },
+      campoData,
+    ],
+    montar: (v, p) => ({
+      titulo: "Política de faltas, atrasos e cancelamentos",
+      blocos: [
+        { paragrafos: [`Para que o acompanhamento transcorra com continuidade e respeito mútuo, ${ou(p.nome, "seu nome")} (CRP ${ou(p.crp, "00/00000")}) informa os combinados abaixo.`] },
+        { titulo: "Desmarcações e remarcações", paragrafos: [`Pedidos de desmarcação devem ser feitos com antecedência mínima de ${ou(v.antecedencia, "prazo")}.`] },
+        { titulo: "Faltas", paragrafos: paragrafos(ou(v.cobranca, "como funciona a cobrança")) },
+        ...(v.atraso ? [{ titulo: "Atrasos", paragrafos: paragrafos(v.atraso) }] : []),
+        ...(v.excecoes ? [{ titulo: "Exceções", paragrafos: paragrafos(v.excecoes) }] : []),
+        fecho(v, p),
+      ],
+    }),
+  },
+  {
+    slug: "encerramento",
+    nome: "Comunicado de encerramento",
+    pacote: "consultorio",
+    oficial: false,
+    resumo: "Formaliza o fim do acompanhamento (alta, interrupção ou encaminhamento) de forma cuidadosa.",
+    campos: [
+      { id: "paciente", rotulo: "Nome do(a) atendido(a)", tipo: "texto", obrigatorio: true, identifica: true },
+      { id: "motivo", rotulo: "Motivo do encerramento", tipo: "opcoes", opcoes: ["alta terapêutica", "interrupção a pedido do(a) atendido(a)", "encaminhamento a outro profissional", "mudança de cidade ou de modalidade"], obrigatorio: true },
+      { id: "ultimo", rotulo: "Data do último atendimento", tipo: "data", obrigatorio: true },
+      { id: "orientacoes", rotulo: "Orientações finais (opcional)", tipo: "area", ia: true, exemplo: "Fico à disposição para retomarmos o acompanhamento, se desejar." },
+      campoData,
+    ],
+    montar: (v, p) => ({
+      titulo: "Comunicado de encerramento do acompanhamento psicológico",
+      blocos: [
+        {
+          paragrafos: [
+            `Comunico o encerramento do acompanhamento psicológico de ${ou(v.paciente, "nome do(a) atendido(a)")}, por motivo de ${ou(v.motivo, "motivo")}. O último atendimento ocorreu em ${dataPorExtenso(v.ultimo)}.`,
+            ...paragrafos(v.orientacoes),
+            "Os registros do atendimento serão mantidos em sigilo e guardados pelo prazo previsto na regulamentação do Conselho Federal de Psicologia.",
+          ],
+        },
+        fecho(v, p),
+        { paragrafos: [`_______________________________\n${ou(p.nome, "seu nome")} — CRP ${ou(p.crp, "00/00000")}`] },
+      ],
+    }),
+  },
 ];
 
 export const PACOTES: Record<Pacote, { nome: string; descricao: string }> = {
   essencial: { nome: "Essencial", descricao: "Os 5 documentos do dia a dia" },
   contratos: { nome: "Contratos e termos", descricao: "Contrato terapêutico e TCLE" },
   completo: { nome: "Acesso completo", descricao: "Laudo, parecer e evolução" },
+  consultorio: { nome: "Pack consultório", descricao: "Recibo, comparecimento, faltas e encerramento" },
 };
 
 export const modeloPorSlug = (slug: string) => MODELOS.find((m) => m.slug === slug);
