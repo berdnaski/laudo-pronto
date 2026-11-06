@@ -5,3 +5,6 @@ node_modules
 
 tsconfig.tsbuildinfo
 .vercel
+
+# gerado automaticamente pelo Next dev
+AGENTS.md
