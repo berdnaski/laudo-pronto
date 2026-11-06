@@ -1,0 +1,40 @@
+def tpl(preheader, titulo, texto, botao, nota):
+    return f'''<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>{titulo}</title></head>
+<body style="margin:0;padding:0;background:#EDF0F5;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#EDF0F5;">{preheader}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDF0F5;padding:32px 12px;">
+<tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
+<tr><td align="center" style="padding:0 0 18px;font-family:Arial,Helvetica,sans-serif;">
+<span style="display:inline-block;background:#FFD84D;color:#172338;font-weight:800;font-size:16px;line-height:1;padding:9px 12px;border-radius:8px;letter-spacing:-.2px;">LP</span>
+<span style="font-size:19px;font-weight:800;color:#172338;vertical-align:middle;padding-left:8px;letter-spacing:-.3px;">Laudo Pronto</span>
+</td></tr>
+<tr><td style="background:#FFFFFF;border-radius:16px;border-top:5px solid #FFD84D;padding:36px 32px;font-family:Arial,Helvetica,sans-serif;">
+<h1 style="margin:0 0 14px;font-size:24px;line-height:1.25;color:#172338;font-weight:800;letter-spacing:-.4px;">{titulo}</h1>
+<p style="margin:0 0 26px;font-size:16px;line-height:1.6;color:#47546B;">{texto}</p>
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 26px;"><tr>
+<td align="center" style="background:#FFD84D;border-radius:10px;box-shadow:0 4px 0 #C99F00;">
+<a href="{{{{ .ConfirmationURL }}}}" style="display:inline-block;padding:16px 34px;font-size:17px;font-weight:800;color:#172338;text-decoration:none;border-radius:10px;">{botao}</a>
+</td></tr></table>
+<p style="margin:0 0 6px;font-size:13px;line-height:1.5;color:#8A94A6;">O botão não funcionou? Copie e cole este link no navegador:</p>
+<p style="margin:0 0 22px;font-size:12px;line-height:1.5;word-break:break-all;"><a href="{{{{ .ConfirmationURL }}}}" style="color:#0B8A7A;">{{{{ .ConfirmationURL }}}}</a></p>
+<div style="border-top:1px solid #D6DCE6;padding-top:18px;font-size:13px;line-height:1.55;color:#8A94A6;">{nota}</div>
+</td></tr>
+<tr><td align="center" style="padding:20px 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#8A94A6;">
+Enviado para {{{{ .Email }}}}<br>Laudo Pronto · Documentos psicológicos no formato da Resolução CFP 06/2019<br>Dúvidas? Responda este e-mail ou escreva para suporte@laudopronto.com.br
+</td></tr>
+</table></td></tr></table></body></html>'''
+
+open("confirmar-cadastro.html","w").write(tpl(
+ "Falta só um clique para liberar seu acesso ao Laudo Pronto.",
+ "Confirme seu e-mail e entre",
+ "Falta só um clique para ativar seu acesso ao <strong style='color:#172338'>Laudo Pronto</strong>. Toque no botão abaixo e você já cai direto no seu painel de documentos.",
+ "Confirmar e entrar →",
+ "🔒 Este link é pessoal e expira em 1 hora. Se você não pediu acesso, é só ignorar este e-mail."))
+open("link-de-acesso.html","w").write(tpl(
+ "Seu link de acesso ao Laudo Pronto chegou.",
+ "Seu link de acesso chegou",
+ "Use o botão abaixo para entrar no <strong style='color:#172338'>Laudo Pronto</strong>. Não precisa de senha: é só tocar e pronto.",
+ "Entrar no Laudo Pronto →",
+ "🔒 Este link é pessoal e expira em 1 hora. Se você não pediu para entrar, pode ignorar este e-mail com segurança."))
