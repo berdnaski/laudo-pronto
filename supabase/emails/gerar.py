@@ -1,40 +1,55 @@
+ROXO = "#6B4DE6"
+ROXO_ESCURO = "#5A3AD6"
+TINTA = "#231C45"
+TEXTO = "#645F7D"
+FRACO = "#9A96AD"
+LINHA = "#E8E4F5"
+FUNDO = "#F8F6FF"
+
+
 def tpl(preheader, titulo, texto, botao, nota):
     return f'''<!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>{titulo}</title></head>
-<body style="margin:0;padding:0;background:#EDF0F5;">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#EDF0F5;">{preheader}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDF0F5;padding:32px 12px;">
+<body style="margin:0;padding:0;background:{FUNDO};">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:{FUNDO};">{preheader}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{FUNDO};padding:40px 12px;">
 <tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
-<tr><td align="center" style="padding:0 0 18px;font-family:Arial,Helvetica,sans-serif;">
-<span style="display:inline-block;background:#FFD84D;color:#172338;font-weight:800;font-size:16px;line-height:1;padding:9px 12px;border-radius:8px;letter-spacing:-.2px;">LP</span>
-<span style="font-size:19px;font-weight:800;color:#172338;vertical-align:middle;padding-left:8px;letter-spacing:-.3px;">Laudo Pronto</span>
+<tr><td align="center" style="padding:0 0 22px;font-family:Arial,Helvetica,sans-serif;">
+<span style="display:inline-block;background:{ROXO};color:#FFFFFF;font-weight:700;font-size:15px;line-height:1;padding:9px 11px;border-radius:9px;vertical-align:middle;">&#10003;</span>
+<span style="font-size:19px;font-weight:800;color:{TINTA};vertical-align:middle;padding-left:9px;letter-spacing:-.4px;">Laudo Pronto</span>
 </td></tr>
-<tr><td style="background:#FFFFFF;border-radius:16px;border-top:5px solid #FFD84D;padding:36px 32px;font-family:Arial,Helvetica,sans-serif;">
-<h1 style="margin:0 0 14px;font-size:24px;line-height:1.25;color:#172338;font-weight:800;letter-spacing:-.4px;">{titulo}</h1>
-<p style="margin:0 0 26px;font-size:16px;line-height:1.6;color:#47546B;">{texto}</p>
-<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 26px;"><tr>
-<td align="center" style="background:#FFD84D;border-radius:10px;box-shadow:0 4px 0 #C99F00;">
-<a href="{{{{ .ConfirmationURL }}}}" style="display:inline-block;padding:16px 34px;font-size:17px;font-weight:800;color:#172338;text-decoration:none;border-radius:10px;">{botao}</a>
+<tr><td style="background:#FFFFFF;border-radius:18px;border:1px solid {LINHA};padding:40px 34px;font-family:Arial,Helvetica,sans-serif;">
+<h1 style="margin:0 0 14px;font-size:25px;line-height:1.2;color:{TINTA};font-weight:800;letter-spacing:-.6px;">{titulo}</h1>
+<p style="margin:0 0 28px;font-size:16px;line-height:1.6;color:{TEXTO};">{texto}</p>
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 28px;"><tr>
+<td align="center" style="background:{ROXO};border-radius:999px;">
+<a href="{{{{ .ConfirmationURL }}}}" style="display:inline-block;padding:15px 32px;font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-radius:999px;">{botao}</a>
 </td></tr></table>
-<p style="margin:0 0 6px;font-size:13px;line-height:1.5;color:#8A94A6;">O botão não funcionou? Copie e cole este link no navegador:</p>
-<p style="margin:0 0 22px;font-size:12px;line-height:1.5;word-break:break-all;"><a href="{{{{ .ConfirmationURL }}}}" style="color:#0B8A7A;">{{{{ .ConfirmationURL }}}}</a></p>
-<div style="border-top:1px solid #D6DCE6;padding-top:18px;font-size:13px;line-height:1.55;color:#8A94A6;">{nota}</div>
+<p style="margin:0 0 6px;font-size:13px;line-height:1.5;color:{FRACO};">O botão não funcionou? Copie e cole este link no navegador:</p>
+<p style="margin:0 0 24px;font-size:12px;line-height:1.5;word-break:break-all;"><a href="{{{{ .ConfirmationURL }}}}" style="color:{ROXO_ESCURO};">{{{{ .ConfirmationURL }}}}</a></p>
+<div style="border-top:1px solid {LINHA};padding-top:20px;font-size:13px;line-height:1.55;color:{FRACO};">{nota}</div>
 </td></tr>
-<tr><td align="center" style="padding:20px 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#8A94A6;">
+<tr><td align="center" style="padding:22px 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:{FRACO};">
 Enviado para {{{{ .Email }}}}<br>Laudo Pronto · Documentos psicológicos no formato da Resolução CFP 06/2019<br>Dúvidas? Responda este e-mail ou escreva para suporte@laudopronto.com.br
 </td></tr>
 </table></td></tr></table></body></html>'''
 
-open("confirmar-cadastro.html","w").write(tpl(
- "Falta só um clique para liberar seu acesso ao Laudo Pronto.",
- "Confirme seu e-mail e entre",
- "Falta só um clique para ativar seu acesso ao <strong style='color:#172338'>Laudo Pronto</strong>. Toque no botão abaixo e você já cai direto no seu painel de documentos.",
- "Confirmar e entrar →",
- "🔒 Este link é pessoal e expira em 1 hora. Se você não pediu acesso, é só ignorar este e-mail."))
-open("link-de-acesso.html","w").write(tpl(
- "Seu link de acesso ao Laudo Pronto chegou.",
- "Seu link de acesso chegou",
- "Use o botão abaixo para entrar no <strong style='color:#172338'>Laudo Pronto</strong>. Não precisa de senha: é só tocar e pronto.",
- "Entrar no Laudo Pronto →",
- "🔒 Este link é pessoal e expira em 1 hora. Se você não pediu para entrar, pode ignorar este e-mail com segurança."))
+
+open("confirmar-cadastro.html", "w").write(tpl(
+    "Falta só um clique para liberar seu acesso ao Laudo Pronto.",
+    "Confirme seu e-mail",
+    "Falta só um passo para abrir sua área no <strong style='color:%s'>Laudo Pronto</strong>. Toque no botão para confirmar este e-mail." % TINTA,
+    "Confirmar meu e-mail",
+    "Se você não criou essa conta, pode ignorar este e-mail com segurança.",
+))
+
+open("link-de-acesso.html", "w").write(tpl(
+    "Seu link de acesso ao Laudo Pronto chegou.",
+    "Seu link de acesso chegou",
+    "Use o botão abaixo para entrar no <strong style='color:%s'>Laudo Pronto</strong>. Não precisa de senha: é só tocar e pronto." % TINTA,
+    "Entrar no Laudo Pronto",
+    "🔒 Este link é pessoal e expira em 1 hora. Se você não pediu para entrar, pode ignorar este e-mail com segurança.",
+))
+
+print("gerados: confirmar-cadastro.html, link-de-acesso.html")

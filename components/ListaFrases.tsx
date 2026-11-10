@@ -19,13 +19,13 @@ export function ListaFrases({ grupos }: { grupos: GrupoFrases[] }) {
     <div className="mt-8 space-y-10">
       {grupos.map((g) => (
         <section key={g.titulo}>
-          <h2 className="text-xl font-bold">{g.titulo}</h2>
+          <h2 className="text-xl font-bold text-tinta">{g.titulo}</h2>
           <p className="mt-1 text-sm text-ink-soft">{g.dica}</p>
           <ul className="mt-4 space-y-3">
             {g.frases.map((f) => (
               <li key={f} className="flex items-start gap-3 rounded-2xl border border-line bg-white p-4">
-                <p className="flex-1 text-[0.95rem] leading-relaxed">{f}</p>
-                <button onClick={() => copiar(f)} className="shrink-0 rounded-lg border border-ink px-3 py-1.5 text-sm font-semibold hover:bg-marca focus-visible:outline focus-visible:outline-4 focus-visible:outline-marca">
+                <p className="flex-1 text-[0.95rem] leading-relaxed text-ink-soft">{f}</p>
+                <button onClick={() => copiar(f)} className="shrink-0 rounded-full border border-line px-3.5 py-1.5 text-sm font-medium text-roxo transition-colors hover:border-roxo focus-visible:outline focus-visible:outline-4 focus-visible:outline-roxo-soft">
                   {copiada === f ? "Copiado ✓" : "Copiar"}
                 </button>
               </li>

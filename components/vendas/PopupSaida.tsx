@@ -10,6 +10,8 @@ export function PopupSaida() {
   const botao = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
+    // Sem preço de saída configurado, não existe oferta: o popup não aparece.
+    if (!OFERTA.precoSaida || !OFERTA.checkoutSaida) return;
     let ja = false;
     try { ja = sessionStorage.getItem(CHAVE) === "1"; } catch { /* sem storage */ }
     if (ja) return;

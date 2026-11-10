@@ -20,6 +20,7 @@ export function Gerador({ slug, planoIA }: { slug: string; planoIA: boolean }) {
 
   const doc = useMemo(() => modelo.montar(valores, perfil), [modelo, valores, perfil]);
   const faltando = modelo.campos.filter((c) => c.obrigatorio && !valores[c.id]?.trim());
+  const pronto = faltando.length === 0 && completo;
 
   const muda = (id: string, v: string) => setValores((s) => ({ ...s, [id]: v }));
 
@@ -63,18 +64,19 @@ export function Gerador({ slug, planoIA }: { slug: string; planoIA: boolean }) {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,440px)_minmax(0,1fr)]">
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,430px)_minmax(0,1fr)] lg:gap-10">
       {/* Formulário */}
       <div className="nao-imprime">
-        <Link href="/app" className="mb-4 inline-block text-sm font-semibold text-ink-soft hover:text-ink">
-          ← Todos os documentos
+        <Link href="/app" className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-soft transition-colors hover:text-tinta">
+          <span aria-hidden="true">←</span> Todos os documentos
         </Link>
-        <h1 className="text-3xl font-extrabold tracking-tight">{modelo.nome}</h1>
-        <p className="mt-1 text-ink-soft">{modelo.resumo}</p>
+        <h1 className="mt-4 text-[1.9rem] font-extrabold leading-tight tracking-[-0.035em] text-tinta">{modelo.nome}</h1>
+        <p className="mt-1.5 text-ink-soft">{modelo.resumo}</p>
 
         {carregado && (!completo || editandoPerfil) ? (
-          <div className="mt-6 rounded-2xl border-2 border-dashed border-marca-deep bg-marca-light/60 p-5">
-            <p className="mb-3 font-bold">Seus dados de assinatura</p>
+          <div className="mt-6 rounded-2xl border border-line bg-white p-6">
+            <h2 className="text-base font-bold text-tinta">Seus dados de assinatura</h2>
+            <p className="mb-5 mt-1 text-sm text-ink-soft">Entram no rodapé do documento e ficam salvos só neste navegador.</p>
             <PerfilForm
               inicial={perfil}
               onSalvar={(p) => {
@@ -85,22 +87,22 @@ export function Gerador({ slug, planoIA }: { slug: string; planoIA: boolean }) {
           </div>
         ) : (
           carregado && (
-            <p className="mt-4 text-sm text-ink-soft">
-              Assinando como <strong className="text-ink">{perfil.nome}</strong>, CRP {perfil.crp}.{" "}
-              <button onClick={() => setEditandoPerfil(true)} className="font-semibold underline underline-offset-2">
+            <p className="mt-5 text-sm text-ink-soft">
+              Assinando como <strong className="font-semibold text-tinta">{perfil.nome}</strong>, CRP {perfil.crp}.{" "}
+              <button onClick={() => setEditandoPerfil(true)} className="font-medium text-roxo underline underline-offset-2">
                 Alterar
               </button>
             </p>
           )
         )}
 
-        <form className="mt-6 space-y-5" onSubmit={(e) => e.preventDefault()}>
+        <form className="mt-6 space-y-6 rounded-2xl border border-line bg-white p-6" onSubmit={(e) => e.preventDefault()}>
           {modelo.campos.map((c) => (
             <div key={c.id}>
-              <label htmlFor={c.id} className="rotulo">
-                {c.rotulo} {c.obrigatorio && <span className="text-alert">*</span>}
+              <label htmlFor={c.id} className="rotulo !mb-1 !text-[15px] !font-semibold !text-tinta">
+                {c.rotulo} {c.obrigatorio && <span className="font-normal text-ink-faint">(obrigatório)</span>}
               </label>
-              {c.dica && <p className="-mt-1 mb-1.5 text-xs text-ink-soft">{c.dica}</p>}
+              {c.dica && <p className="mb-2 text-[13px] text-ink-soft">{c.dica}</p>}
               {c.tipo === "area" ? (
                 <textarea id={c.id} rows={4} className="campo resize-y" placeholder={c.exemplo} value={valores[c.id] || ""} onChange={(e) => muda(c.id, e.target.value)} />
               ) : c.tipo === "opcoes" ? (
@@ -118,9 +120,9 @@ export function Gerador({ slug, planoIA }: { slug: string; planoIA: boolean }) {
                   type="button"
                   disabled={!valores[c.id]?.trim() || ia.campo !== null}
                   onClick={() => melhorar(c)}
-                  className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-ink/15 bg-white px-3 py-1.5 text-sm font-semibold text-ink transition hover:border-ink disabled:cursor-not-allowed disabled:opacity-40"
+                  className="mt-2.5 inline-flex items-center gap-1.5 rounded-full border border-line px-3.5 py-1.5 text-[13px] font-medium text-roxo transition-colors hover:border-roxo disabled:cursor-not-allowed disabled:border-line disabled:text-ink-faint"
                 >
-                  {ia.campo === c.id ? "Melhorando a redação…" : "✦ Melhorar redação com IA"}
+                  {ia.campo === c.id ? "Melhorando a redação…" : "Melhorar redação com IA"}
                 </button>
               )}
             </div>
@@ -128,12 +130,10 @@ export function Gerador({ slug, planoIA }: { slug: string; planoIA: boolean }) {
         </form>
 
         {ia.erro && (
-          <div role="alert" className="mt-5 rounded-xl border border-alert/30 bg-alert/5 p-4 text-sm">
-            <p className="font-semibold">{ia.erro}</p>
+          <div role="alert" className="mt-5 rounded-2xl border border-alert/25 bg-alert/5 p-5 text-sm">
+            <p className="font-semibold text-tinta">{ia.erro}</p>
             {ia.assinar && OFERTA.checkoutIA && (
-              <a href={OFERTA.checkoutIA} className="cta cta-sm mt-3">
-                Liberar IA ilimitada
-              </a>
+              <a href={OFERTA.checkoutIA} className="btn btn-sm mt-4">Liberar IA ilimitada</a>
             )}
           </div>
         )}
@@ -142,26 +142,30 @@ export function Gerador({ slug, planoIA }: { slug: string; planoIA: boolean }) {
             {planoIA ? `${ia.restantes} melhorias restantes este mês.` : `${ia.restantes} melhorias de teste restantes.`}
           </p>
         )}
-        <p className="mt-6 text-xs leading-relaxed text-ink-faint">
-          Nome e dados que identificam o paciente não são enviados à IA nem salvos em nenhum servidor: o documento é montado no seu navegador.
+        <p className="mt-6 text-[13px] leading-relaxed text-ink-faint">
+          O documento é montado no seu navegador. Nome e dados que identificam o paciente não são enviados à IA nem salvos em nenhum servidor.
         </p>
       </div>
 
       {/* Prévia */}
       <div>
-        <div className="nao-imprime sticky top-4 z-10 mb-4 flex flex-wrap items-center gap-3 rounded-2xl bg-ink p-3 text-white shadow-paper">
-          <button onClick={word} disabled={baixando} className="cta cta-sm">
+        <div className="nao-imprime sticky top-[72px] z-20 mb-5 flex flex-wrap items-center gap-3 rounded-2xl border border-line bg-white p-3">
+          <button onClick={word} disabled={baixando} className="btn btn-sm disabled:opacity-60">
             {baixando ? "Gerando…" : "Baixar em Word"}
           </button>
-          <button onClick={() => window.print()} className="rounded-xl border border-white/30 px-5 py-3 font-bold hover:bg-white/10">
+          <button onClick={() => window.print()} className="rounded-full border border-line px-5 py-2.5 text-[15px] font-medium text-tinta transition-colors hover:border-roxo">
             Salvar em PDF
           </button>
-          <p className="ml-auto text-sm text-white/70">
-            {faltando.length ? `Faltam ${faltando.length} campo${faltando.length > 1 ? "s" : ""} obrigatório${faltando.length > 1 ? "s" : ""}` : "Pronto para revisar e assinar"}
+          <p className={`ml-auto pr-1 text-sm ${pronto ? "font-medium text-roxo" : "text-ink-soft"}`}>
+            {!completo
+              ? "Preencha seus dados de assinatura"
+              : faltando.length
+                ? `Faltam ${faltando.length} campo${faltando.length > 1 ? "s" : ""} obrigatório${faltando.length > 1 ? "s" : ""}`
+                : "Pronto para revisar e assinar"}
           </p>
         </div>
-        <Folha doc={doc} prof={perfil} />
-        <p className="nao-imprime mx-auto mt-4 max-w-[720px] text-center text-xs text-ink-faint">
+        <Folha doc={doc} prof={perfil} className="!shadow-folha" />
+        <p className="nao-imprime mx-auto mt-5 max-w-[720px] text-center text-[13px] text-ink-faint">
           Revise o texto antes de assinar. A responsabilidade técnica pelo documento é do(a) profissional que o assina.
         </p>
       </div>

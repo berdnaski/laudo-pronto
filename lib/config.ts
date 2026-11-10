@@ -4,9 +4,9 @@ const link = (v?: string) => (v && /^https?:\/\/\S+$/.test(v.trim()) ? v.trim() 
 const data = (v?: string) => (v && !Number.isNaN(Date.parse(v.trim())) ? v.trim() : "");
 
 export const OFERTA = {
-  preco: "27,90",
+  preco: "17,90",
   /** Plano Completo: tudo do Essencial + laudo, parecer, evolução, contratos, consultório e frases. */
-  precoCompleto: "57,00",
+  precoCompleto: "27,90",
   /** Ex.: "ou 3x de R$ 10,15 no cartão" — confira o valor na sua oferta da Cakto. Vazio = não mostra. */
   parcelas: process.env.NEXT_PUBLIC_PARCELAS?.startsWith("ou ") ? process.env.NEXT_PUBLIC_PARCELAS : "",
   checkout: link(process.env.NEXT_PUBLIC_CHECKOUT_URL) || "https://pay.cakto.com.br/3cjotp6_1286972",
@@ -18,10 +18,22 @@ export const OFERTA = {
   suporte: process.env.NEXT_PUBLIC_EMAIL_SUPORTE?.includes("@") ? process.env.NEXT_PUBLIC_EMAIL_SUPORTE : "suporte@laudopronto.com.br",
   checkoutIA: link(process.env.NEXT_PUBLIC_CHECKOUT_IA_URL),
   checkoutCompleto: link(process.env.NEXT_PUBLIC_CHECKOUT_COMPLETO_URL) || "https://pay.cakto.com.br/p9um7zs_1289547",
-  /** Oferta mostrada só no popup de saída (mesmo produto, R$ 19,90). */
+  /**
+   * Oferta mostrada só no popup de saída (mesmo produto, mais barato).
+   * Deixe `precoSaida` vazio enquanto a oferta não existir na Cakto: o popup some sozinho.
+   */
   checkoutSaida: link(process.env.NEXT_PUBLIC_CHECKOUT_SAIDA_URL) || "https://pay.cakto.com.br/4kazcc5",
-  precoSaida: "19,90",
+  precoSaida: process.env.NEXT_PUBLIC_PRECO_SAIDA || "",
   checkoutConsultorio: link(process.env.NEXT_PUBLIC_CHECKOUT_CONSULTORIO_URL) || "https://pay.cakto.com.br/36khpqv_1289570",
   checkoutFrases: link(process.env.NEXT_PUBLIC_CHECKOUT_FRASES_URL) || "https://pay.cakto.com.br/35n78e8_1289573",
   checkoutContratos: link(process.env.NEXT_PUBLIC_CHECKOUT_CONTRATOS_URL) || "https://pay.cakto.com.br/b5asgcv_1287256",
+};
+
+/** Preço de cada pacote avulso, como está cadastrado na Cakto. Usado nos botões de liberar. */
+export const PRECOS: Record<string, string> = {
+  essencial: OFERTA.preco,
+  completo: OFERTA.precoCompleto,
+  contratos: "14,90",
+  consultorio: "9,90",
+  frases: "7,90",
 };
