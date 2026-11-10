@@ -13,12 +13,12 @@ export function BarraFixa() {
   }, []);
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 flex items-center gap-3 border-t border-line bg-white/95 px-4 py-3 backdrop-blur transition-transform duration-300 md:hidden ${ver ? "translate-y-0" : "translate-y-full"}`}
+      className={`fixed inset-x-0 bottom-0 z-40 flex items-center gap-4 border-t border-line bg-white/95 px-5 py-3 backdrop-blur transition-transform duration-300 md:hidden ${ver ? "translate-y-0" : "translate-y-full"}`}
       aria-hidden={!ver}
     >
-      <p className="flex-1 text-sm leading-tight text-ink-soft">
+      <p className="flex-1 text-[13px] leading-tight text-ink-soft">
         A partir de<br />
-        <strong className="text-lg text-tinta">R$ {OFERTA.preco}</strong>
+        <strong className="text-[17px] text-tinta">R$ {OFERTA.preco}</strong>
       </p>
       <a href="#planos" tabIndex={ver ? 0 : -1} className="btn btn-sm">Ver os planos</a>
     </div>

@@ -11,9 +11,8 @@ export function FaixaLancamento({ fim, preco }: { fim: string; preco: string }) 
   }, [fim]);
   if (!ativa) return null;
   return (
-    <div className="bg-tinta px-4 py-2.5 text-center text-sm text-white/90">
-      Preço de lançamento: plano Essencial por <strong className="text-white">R$ {preco}</strong>. Termina em{" "}
-      <strong className="text-white"><Contador fim={fim} compacto /></strong>
+    <div className="bg-roxo px-5 py-2.5 text-center text-[14px] font-medium text-white">
+      Preço de lançamento: plano Essencial por R$ {preco}. Termina em <Contador fim={fim} compacto />
     </div>
   );
 }

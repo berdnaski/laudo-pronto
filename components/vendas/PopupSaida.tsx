@@ -39,16 +39,18 @@ export function PopupSaida() {
 
   if (!aberto) return null;
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-tinta/70 px-4" onClick={() => setAberto(false)}>
-      <div role="dialog" aria-modal="true" aria-labelledby="saida-titulo" onClick={(e) => e.stopPropagation()} className="animate-surgir relative w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-folha">
-        <button onClick={() => setAberto(false)} aria-label="Fechar" className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full text-2xl font-bold text-ink-soft hover:bg-papel focus-visible:outline focus-visible:outline-4 focus-visible:outline-carimbo">×</button>
-        <h2 id="saida-titulo" className="text-3xl font-extrabold leading-tight tracking-tight text-tinta">Antes de sair, um preço menor</h2>
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-tinta/60 px-5" onClick={() => setAberto(false)}>
+      <div role="dialog" aria-modal="true" aria-labelledby="saida-titulo" onClick={(e) => e.stopPropagation()} className="animate-surgir relative w-full max-w-sm rounded-3xl bg-white p-8 text-center shadow-folha">
+        <button onClick={() => setAberto(false)} aria-label="Fechar" className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full text-2xl font-light text-ink-soft hover:bg-papel focus-visible:outline focus-visible:outline-4 focus-visible:outline-roxo-soft">×</button>
+        <h2 id="saida-titulo" className="text-[1.7rem] font-extrabold leading-tight tracking-[-0.035em] text-tinta">Antes de sair, um preço menor</h2>
         <p className="mt-3 text-ink-soft">Leve o plano Essencial por um valor reduzido, só nesta visita.</p>
-        <p className="mt-5 text-ink-soft"><s>de R$ {OFERTA.preco}</s></p>
-        <p className="text-6xl font-extrabold tracking-tight text-tinta"><span className="align-top text-2xl">R$</span>{OFERTA.precoSaida}</p>
-        <p className="mt-1 text-sm text-ink-soft">Pagamento único, acesso na hora e 7 dias de garantia</p>
-        <a ref={botao} href={OFERTA.checkoutSaida} className="btn mt-6 w-full">Quero por R$ {OFERTA.precoSaida}</a>
-        <button onClick={() => setAberto(false)} className="mt-4 text-sm font-semibold text-ink-soft underline">Não, obrigado</button>
+        <p className="mt-6 text-sm text-ink-soft"><s>de R$ {OFERTA.preco}</s></p>
+        <p className="flex items-baseline justify-center gap-1 tracking-[-0.04em] text-tinta">
+          <span className="text-lg font-semibold">R$</span>
+          <span className="text-5xl font-extrabold">{OFERTA.precoSaida}</span>
+        </p>
+        <a ref={botao} href={OFERTA.checkoutSaida} className="btn mt-7 w-full">Quero por R$ {OFERTA.precoSaida}</a>
+        <button onClick={() => setAberto(false)} className="mt-4 text-sm text-ink-soft underline">Não, obrigado</button>
       </div>
     </div>
   );
