@@ -37,6 +37,7 @@ export function Demo() {
       <Folha
         doc={doc}
         prof={prof}
+        ilustracao
         className="!max-w-none !rounded-2xl !px-8 !py-10 text-[13.5px] !shadow-folha sm:!px-12"
       />
     </div>

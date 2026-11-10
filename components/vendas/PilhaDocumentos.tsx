@@ -36,6 +36,7 @@ function Doc({ slug, campos, className = "" }: { slug: keyof typeof exemplos; ca
     <Folha
       doc={modelo.montar(campos, prof)}
       prof={prof}
+      ilustracao
       className={`!max-w-none !rounded-xl !px-6 !py-7 text-[10.5px] !leading-[1.75] !shadow-folha ${className}`}
     />
   );

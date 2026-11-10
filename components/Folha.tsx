@@ -1,13 +1,19 @@
 import type { Documento, Profissional } from "@/lib/documentos";
 
-/** Renderiza o documento como uma folha A4. Mesma estrutura usada na exportação. */
-export function Folha({ doc, prof, className = "" }: { doc: Documento; prof: Profissional; className?: string }) {
+/**
+ * Renderiza o documento como uma folha A4. Mesma estrutura usada na exportação.
+ * `ilustracao` desliga os títulos semânticos: usado nas prévias da página de vendas,
+ * para o documento de exemplo não competir com os títulos da própria página.
+ */
+export function Folha({ doc, prof, className = "", ilustracao = false }: { doc: Documento; prof: Profissional; className?: string; ilustracao?: boolean }) {
+  const Titulo = ilustracao ? "p" : "h1";
+  const Subtitulo = ilustracao ? "p" : "h2";
   return (
     <article className={`folha papel mx-auto w-full max-w-[720px] rounded-sm px-8 py-10 font-doc text-[15px] leading-[1.75] text-ink sm:px-14 sm:py-14 ${className}`}>
-      <h1 className="mb-8 text-center text-xl font-semibold uppercase tracking-[0.12em]">{doc.titulo}</h1>
+      <Titulo className="mb-8 text-center text-xl font-semibold uppercase tracking-[0.12em]">{doc.titulo}</Titulo>
       {doc.blocos.map((b, i) => (
         <section key={i} className="mb-5">
-          {b.titulo && <h2 className="mb-1.5 text-[15px] font-bold">{b.titulo}</h2>}
+          {b.titulo && <Subtitulo className="mb-1.5 text-[15px] font-bold">{b.titulo}</Subtitulo>}
           {b.paragrafos.map((p, j) => (
             <p key={j} className="mb-2 whitespace-pre-line text-left sm:text-justify">
               {realcarPendencias(p)}
