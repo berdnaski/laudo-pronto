@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { PainelConteudo } from "@/components/PainelConteudo";
 import { Gerador } from "@/components/Gerador";
+import { Depoimentos } from "@/components/vendas/Depoimentos";
+import { DEPOIMENTOS_EXEMPLO } from "@/lib/depoimentos";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
@@ -10,6 +12,8 @@ export default function PreviaInterna() {
   return (
     <div className="min-h-screen bg-papel">
       <div className="mx-auto max-w-6xl px-5 py-10">
+        <Depoimentos itens={DEPOIMENTOS_EXEMPLO} />
+        <hr className="my-16 border-line" />
         <PainelConteudo email="ana@consultorio.com" pacotes={["essencial", "contratos", "frases"]} />
         <hr className="my-16 border-line" />
         <Gerador slug="declaracao" planoIA={false} />

@@ -5,6 +5,8 @@ import { Contador } from "@/components/vendas/Contador";
 import { FaixaLancamento } from "@/components/vendas/FaixaLancamento";
 import { PilhaDocumentos } from "@/components/vendas/PilhaDocumentos";
 import { Demo } from "@/components/vendas/Demo";
+import { Depoimentos } from "@/components/vendas/Depoimentos";
+import { DEPOIMENTOS } from "@/lib/depoimentos";
 import { OFERTA } from "@/lib/config";
 import { MODELOS } from "@/lib/documentos";
 
@@ -153,6 +155,8 @@ export default function Vendas() {
             </ul>
           </div>
         </section>
+
+        <Depoimentos itens={DEPOIMENTOS} />
 
         {/* Planos */}
         <section id="planos" className="scroll-mt-6 px-5 py-20 sm:py-28">
