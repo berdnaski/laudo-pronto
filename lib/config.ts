@@ -5,6 +5,8 @@ const data = (v?: string) => (v && !Number.isNaN(Date.parse(v.trim())) ? v.trim(
 
 export const OFERTA = {
   preco: "27,90",
+  /** Plano Completo: tudo do Essencial + laudo, parecer, evolução, contratos, consultório e frases. */
+  precoCompleto: "57,00",
   /** Ex.: "ou 3x de R$ 10,15 no cartão" — confira o valor na sua oferta da Cakto. Vazio = não mostra. */
   parcelas: process.env.NEXT_PUBLIC_PARCELAS?.startsWith("ou ") ? process.env.NEXT_PUBLIC_PARCELAS : "",
   checkout: link(process.env.NEXT_PUBLIC_CHECKOUT_URL) || "https://pay.cakto.com.br/3cjotp6_1286972",

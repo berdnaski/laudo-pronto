@@ -1,4 +1,4 @@
-@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/schibsted-grotesk";
 @import "@fontsource-variable/source-serif-4";
 @tailwind base;
 @tailwind components;
@@ -15,6 +15,17 @@ body { @apply bg-mist text-ink font-sans antialiased; font-optical-sizing: auto;
       focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-ink;
   }
   .cta-sm { @apply rounded-xl px-5 py-3 text-base; }
+  /* Botões da página de vendas */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-carimbo px-7 py-4 text-lg font-bold text-white
+      transition-colors hover:bg-carimbo-deep
+      focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-carimbo;
+  }
+  .btn-sm { @apply px-5 py-2.5 text-base; }
+  .btn-claro { @apply bg-white text-tinta hover:bg-papel focus-visible:outline-white; }
+  .btn-contorno { @apply border-2 border-tinta/20 bg-transparent text-tinta hover:border-tinta hover:bg-transparent; }
+  /* Marca-texto: usado só em pendências do documento */
+  .marca-texto { background: linear-gradient(transparent 55%, #FFE680 55%, #FFE680 92%, transparent 92%); padding: 0 .08em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
   /* CTA principal: pulsa e tem um brilho passando */
   .cta-vivo { @apply relative overflow-hidden animate-pulsoCta; }
   .revelar { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
@@ -26,7 +37,7 @@ body { @apply bg-mist text-ink font-sans antialiased; font-optical-sizing: auto;
   .papel { @apply bg-white shadow-paper; }
   .campo {
     @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-ink-faint
-      focus:border-ink focus:outline-none focus:ring-4 focus:ring-marca/60;
+      focus:border-carimbo focus:outline-none focus:ring-4 focus:ring-carimbo/20;
   }
   .rotulo { @apply mb-1.5 block text-sm font-semibold text-ink; }
 }

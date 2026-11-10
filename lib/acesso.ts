@@ -17,8 +17,8 @@ export async function acessoDe(email: string): Promise<Acesso> {
   const pacotes: string[] = data?.pacotes ?? [];
   // A assinatura de IA libera todos os modelos.
   if (pacotes.includes("ia")) pacotes.push("essencial", "contratos", "completo", "consultorio", "frases");
-  // O Acesso Completo inclui os bônus de consultório e o banco de frases.
-  if (pacotes.includes("completo")) pacotes.push("consultorio", "frases");
+  // O plano Completo inclui tudo: documentos essenciais, laudo/parecer/evolução, contratos, consultório e frases.
+  if (pacotes.includes("completo")) pacotes.push("essencial", "contratos", "consultorio", "frases");
   return { email, pacotes: [...new Set(pacotes)] };
 }
 

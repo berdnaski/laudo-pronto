@@ -39,17 +39,16 @@ export function PopupSaida() {
 
   if (!aberto) return null;
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/70 px-4" onClick={() => setAberto(false)}>
-      <div role="dialog" aria-modal="true" aria-labelledby="saida-titulo" onClick={(e) => e.stopPropagation()} className="animate-surgir relative w-full max-w-md rounded-3xl border-4 border-ink bg-marca p-7 text-center shadow-[8px_8px_0_#172338]">
-        <button onClick={() => setAberto(false)} aria-label="Fechar" className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full text-2xl font-bold hover:bg-ink/10 focus-visible:outline focus-visible:outline-4 focus-visible:outline-ink">×</button>
-        <p className="text-sm font-bold uppercase tracking-wide text-ink-soft">Espere, antes de sair</p>
-        <h2 id="saida-titulo" className="mt-1 text-3xl font-extrabold leading-tight tracking-tight">Seu desconto de última hora</h2>
-        <p className="mt-3 text-ink-soft">Leve o Laudo Pronto agora por um preço menor, só nesta visita.</p>
-        <p className="mt-4 text-ink-soft"><s>de R$ {OFERTA.preco}</s></p>
-        <p className="text-6xl font-extrabold tracking-tight"><span className="align-top text-2xl">R$</span>{OFERTA.precoSaida}</p>
-        <p className="mt-1 text-sm font-semibold">Pagamento único · Acesso na hora · 7 dias de garantia</p>
-        <a ref={botao} href={OFERTA.checkoutSaida} className="cta mt-6 block w-full bg-ink text-white shadow-[0_4px_0_#000] hover:bg-ink/90">Quero por R$ {OFERTA.precoSaida}</a>
-        <button onClick={() => setAberto(false)} className="mt-4 text-sm font-semibold underline">Não, obrigado</button>
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-tinta/70 px-4" onClick={() => setAberto(false)}>
+      <div role="dialog" aria-modal="true" aria-labelledby="saida-titulo" onClick={(e) => e.stopPropagation()} className="animate-surgir relative w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-folha">
+        <button onClick={() => setAberto(false)} aria-label="Fechar" className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full text-2xl font-bold text-ink-soft hover:bg-papel focus-visible:outline focus-visible:outline-4 focus-visible:outline-carimbo">×</button>
+        <h2 id="saida-titulo" className="text-3xl font-extrabold leading-tight tracking-tight text-tinta">Antes de sair, um preço menor</h2>
+        <p className="mt-3 text-ink-soft">Leve o plano Essencial por um valor reduzido, só nesta visita.</p>
+        <p className="mt-5 text-ink-soft"><s>de R$ {OFERTA.preco}</s></p>
+        <p className="text-6xl font-extrabold tracking-tight text-tinta"><span className="align-top text-2xl">R$</span>{OFERTA.precoSaida}</p>
+        <p className="mt-1 text-sm text-ink-soft">Pagamento único, acesso na hora e 7 dias de garantia</p>
+        <a ref={botao} href={OFERTA.checkoutSaida} className="btn mt-6 w-full">Quero por R$ {OFERTA.precoSaida}</a>
+        <button onClick={() => setAberto(false)} className="mt-4 text-sm font-semibold text-ink-soft underline">Não, obrigado</button>
       </div>
     </div>
   );
