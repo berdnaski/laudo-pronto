@@ -22,7 +22,7 @@ export const OFERTA = {
    * Oferta mostrada só no popup de saída (mesmo produto, mais barato).
    * Deixe `precoSaida` vazio enquanto a oferta não existir na Cakto: o popup some sozinho.
    */
-  checkoutSaida: link(process.env.NEXT_PUBLIC_CHECKOUT_SAIDA_URL) || "https://pay.cakto.com.br/4kazcc5",
+  checkoutSaida: link(process.env.NEXT_PUBLIC_CHECKOUT_SAIDA_URL) || "https://pay.cakto.com.br/5szpq3r",
   precoSaida: process.env.NEXT_PUBLIC_PRECO_SAIDA || "14,90",
   checkoutConsultorio: link(process.env.NEXT_PUBLIC_CHECKOUT_CONSULTORIO_URL) || "https://pay.cakto.com.br/36khpqv_1289570",
   checkoutFrases: link(process.env.NEXT_PUBLIC_CHECKOUT_FRASES_URL) || "https://pay.cakto.com.br/35n78e8_1289573",
