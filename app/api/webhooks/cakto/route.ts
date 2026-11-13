@@ -2,8 +2,10 @@ import crypto from "node:crypto";
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/servidor";
 import { pacoteDoProduto } from "@/lib/acesso";
+import { enviarLinkDeAcesso } from "@/lib/boas-vindas";
 
 const LIBERA = new Set(["purchase_approved", "subscription_created", "subscription_renewed", "subscription_late_recovered", "subscription_resumed"]);
+const NOVA_COMPRA = new Set(["purchase_approved", "subscription_created"]);
 const REVOGA = new Set(["refund", "chargeback", "subscription_canceled"]);
 
 function iguais(a: string, b: string) {
@@ -73,5 +75,9 @@ export async function POST(req: Request) {
     atualizado_em: new Date().toISOString(),
   });
 
-  return NextResponse.json({ ok: true, email, pacotes: [...pacotes] });
+  // Compra nova: já manda o link de acesso por e-mail, sem a pessoa precisar pedir.
+  let emailEnviado = false;
+  if (NOVA_COMPRA.has(evento)) emailEnviado = await enviarLinkDeAcesso(email);
+
+  return NextResponse.json({ ok: true, email, pacotes: [...pacotes], emailEnviado });
 }
