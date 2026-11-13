@@ -31,7 +31,7 @@ def tpl(preheader, titulo, texto, botao, nota):
 <div style="border-top:1px solid {LINHA};padding-top:20px;font-size:13px;line-height:1.55;color:{FRACO};">{nota}</div>
 </td></tr>
 <tr><td align="center" style="padding:22px 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:{FRACO};">
-Enviado para {{{{ .Email }}}}<br>Laudo Pronto · Documentos psicológicos no formato da Resolução CFP 06/2019<br>Dúvidas? Responda este e-mail ou escreva para suporte@laudopronto.com.br
+Enviado para {{{{ .Email }}}}<br>Laudo Pronto · Documentos psicológicos no formato da Resolução CFP 06/2019<br>Dúvidas? Responda este e-mail ou escreva para berdnaski1177@gmail.com
 </td></tr>
 </table></td></tr></table></body></html>'''
 

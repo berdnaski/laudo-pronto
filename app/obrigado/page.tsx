@@ -14,7 +14,7 @@ export default function Obrigado() {
         <div className="rounded-3xl border border-line bg-white p-8">
           <h1 className="text-2xl font-extrabold leading-tight tracking-tight text-tinta">Compra confirmada. Seu acesso está liberado.</h1>
           <p className="mt-3 leading-relaxed text-ink-soft">
-            Entre com o <strong className="font-semibold text-tinta">mesmo e-mail da compra</strong>. Enviamos um link de acesso, sem senha.
+            Enviamos agora um <strong className="font-semibold text-tinta">link de acesso para o e-mail da compra</strong>. É só abrir o e-mail e tocar no botão, sem senha. Não chegou? Veja o spam ou peça outro link abaixo, usando o mesmo e-mail da compra.
           </p>
           <Link href="/entrar" className="btn mt-7 w-full">Entrar no Laudo Pronto</Link>
         </div>
