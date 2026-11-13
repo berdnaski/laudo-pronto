@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Marca } from "@/components/Marca";
-import { supabaseNavegador } from "@/lib/supabase/navegador";
 
 export default function Entrar() {
   const [email, setEmail] = useState("");
@@ -11,10 +10,12 @@ export default function Entrar() {
   async function enviar(e: React.FormEvent) {
     e.preventDefault();
     setEstado("enviando");
-    const { error } = await supabaseNavegador().auth.signInWithOtp({
-      email: email.trim().toLowerCase(),
-      options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
-    });
+    const r = await fetch("/api/entrar", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email }),
+    }).catch(() => null);
+    const error = !r || !r.ok;
     setEstado(error ? "erro" : "enviado");
   }
 
@@ -27,7 +28,7 @@ export default function Entrar() {
             <>
               <h1 className="text-2xl font-extrabold tracking-tight text-tinta">Confira seu e-mail</h1>
               <p className="mt-3 leading-relaxed text-ink-soft">
-                Enviamos um link de acesso para <strong className="font-semibold text-tinta">{email}</strong>. Abra no mesmo aparelho para entrar direto.
+                Enviamos um link de acesso para <strong className="font-semibold text-tinta">{email}</strong>. Abra o e-mail e toque no botão para entrar. Se não aparecer, olhe o spam.
               </p>
               <button onClick={() => setEstado("livre")} className="mt-6 text-sm font-medium text-roxo underline underline-offset-2">
                 Usar outro e-mail
